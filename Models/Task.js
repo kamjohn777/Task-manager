@@ -9,7 +9,10 @@ const Task = sequelize.define("tasks", {
   description: Sequelize.STRING,
   category: Sequelize.STRING,
   image: Sequelize.STRING,
+  completed: Sequelize.BOOLEAN,
+  dueDate: Sequelize.DATE
 });
+
 
 module.exports = {
  Task,
