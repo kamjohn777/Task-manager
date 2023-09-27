@@ -17,5 +17,8 @@ router.get('/tasks', async function(req, res, next) {
   }
 });
 
+//DELETE all tasks and one task routes
+
+
 module.exports = router;
 
