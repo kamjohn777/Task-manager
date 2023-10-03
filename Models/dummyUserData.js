@@ -1,4 +1,4 @@
-const users = [
+const userData = [
     {
       firstName: "John",
       lastName: "Doe",
@@ -15,7 +15,7 @@ const users = [
   ];
 
   
-  const tasks = [
+  const taskData = [
     {
       title: "Complete project report",
       description: "Finish the quarterly project report for the client.",
@@ -55,6 +55,6 @@ const users = [
     // Add more tasks as needed...
   ];
 
-  module.exports = { users, tasks };
+  module.exports = { userData, taskData };
   
   

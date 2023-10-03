@@ -1,12 +1,12 @@
-const { db } = require('./connection')
+const { sequelize } = require('./db')
 const { Task, User } = require('../Models')
-const userData = require('../Models/dummyUserData')
-const taskData = require('../Models/dummyUserData')
+const { userData } = require('../Models/dummyUserData')
+const { taskData } = require('../Models/dummyUserData')
 
 const seed = async () => {
   // drop the db
-  await db.sync({ force: true })
-
+  await sequelize.sync({ force: true })
+console.log(userData);
   // add the data
   const users = await User.bulkCreate(userData)
   const task = await Task.bulkCreate(taskData)
@@ -20,6 +20,8 @@ const seed = async () => {
 
   console.log('Task and User database info populated!')
 }
+
+
 
 //export my seed function
 // module.exports = seed
