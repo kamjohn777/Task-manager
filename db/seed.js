@@ -6,7 +6,6 @@ const { taskData } = require('../Models/dummyUserData')
 const seed = async () => {
   // drop the db
   await sequelize.sync({ force: true })
-console.log(userData);
   // add the data
   const users = await User.bulkCreate(userData)
   const task = await Task.bulkCreate(taskData)

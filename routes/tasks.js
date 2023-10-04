@@ -1,6 +1,4 @@
 const { Task } = require('../Models');
-const { index } = require('./index')
-// const { Task, db } = require('./models'); 
 const express = require('express');
 const router = express.Router();
 
@@ -81,3 +79,5 @@ router.delete("/", async (req, res, next) => {
       next(error);
     }
   });
+
+  module.exports = router;
