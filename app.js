@@ -33,7 +33,7 @@ const { auth } = require('express-openid-connect');
 const config = {
   authRequired: false,
   auth0Logout: true,
-  secret: 'aRh6NIfxHZ1k24mTpJVISUqhKhnpBVyrH8YzkB8vgwim2vJhkOvc1t8qePJqn95y',
+  secret: '',
   baseURL: 'http://localhost:3000',
   clientID: 'OLj91tvk1KM3MhlVyIHGvQXvWdukPqPH',
   issuerBaseURL: 'https://dev-eqkf04d60nvcrsit.us.auth0.com'
