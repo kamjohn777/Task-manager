@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../Models');
+// import the auth 
 
 // Create a new user
 router.post('/', async function(req, res, next) {

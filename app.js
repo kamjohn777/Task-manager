@@ -8,7 +8,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const taskRouter = require('./routes/tasks');
-
+const { auth } = require('express-openid-connect');
 
 
 
@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // User Authentication Section
-const { auth } = require('express-openid-connect');
+
 
 const config = {
   authRequired: false,
