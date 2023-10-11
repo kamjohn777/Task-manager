@@ -9,6 +9,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const taskRouter = require('./routes/tasks');
 const { auth } = require('express-openid-connect');
+//require env files
 const dotenv = require('dotenv')
 dotenv.config()
 
