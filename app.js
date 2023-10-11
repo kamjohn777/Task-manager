@@ -1,17 +1,55 @@
-var createError = require('http-errors');
+const createError = require('http-errors');
 const cors = require('cors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var taskRouter = require('./routes/tasks');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const taskRouter = require('./routes/tasks');
+const { auth } = require('express-openid-connect');
 
 
 
-var app = express();
+
+
+const app = express(); // Define the app object here
+
+// view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
+// app.set('view engine', 'pug');
+
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+// User Authentication Section
+
+
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: '',
+  baseURL: 'http://localhost:3000',
+  clientID: 'OLj91tvk1KM3MhlVyIHGvQXvWdukPqPH',
+  issuerBaseURL: 'https://dev-eqkf04d60nvcrsit.us.auth0.com'
+};
+
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+app.use(auth(config));
+
+// req.isAuthenticated is provided from the auth router
+app.get('/', (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+});
+
+//  End of User Authentication Section
+
+// var app = express();
 app.use(cors());
 
 
