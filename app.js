@@ -9,6 +9,9 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const taskRouter = require('./routes/tasks');
 const { auth } = require('express-openid-connect');
+const dotenv = require('dotenv')
+dotenv.config()
+
 
 
 
@@ -33,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const config = {
   authRequired: false,
   auth0Logout: true,
-  secret: '',
+  secret : process.env.SECRET,
   baseURL: 'http://localhost:3000',
   clientID: 'OLj91tvk1KM3MhlVyIHGvQXvWdukPqPH',
   issuerBaseURL: 'https://dev-eqkf04d60nvcrsit.us.auth0.com'
