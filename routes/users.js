@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { User } = require('../Models');
 // import the auth 
+const { requiresAuth } = require('express-openid-connect')
+
 
 // Create a new user
-router.post('/', async function(req, res, next) {
+router.post('/', requiresAuth(), async function(req, res, next) {
   try {
     const {  firstName, lastName, phoneNumber, email } = req.body;
 
@@ -23,7 +25,7 @@ router.post('/', async function(req, res, next) {
 });
 
 // Read all users
-router.get('/', async function(req, res, next) {
+router.get('/', requiresAuth(), async function(req, res, next) {
   try {
     const users = await User.findAll()
     res.json(users);
@@ -34,7 +36,7 @@ router.get('/', async function(req, res, next) {
 });
 
 // Read a specific user by ID
-router.get('/:id', async function(req, res, next) {
+router.get('/:id', requiresAuth(), async function(req, res, next) {
   try {
     let userID = parseInt(req.params.id);
     console.log('user id', userID);
@@ -59,7 +61,7 @@ router.get('/:id', async function(req, res, next) {
 });
 
 // Update a user by ID
-router.put('/:id', async function(req, res, next) {
+router.put('/:id', requiresAuth(), async function(req, res, next) {
    let is = req.params.id;
    let user = await User.findByPk(id);
    const {firstName, lastName, phoneNumber, email} = req.body
@@ -78,7 +80,7 @@ router.put('/:id', async function(req, res, next) {
 });
 
 // Delete a user by ID
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', requiresAuth(), function(req, res, next) {
   const userId = parseInt(req.params.id);
   const userIndex = users.findIndex(u => u.id === userId);
   if (userIndex !== -1) {
