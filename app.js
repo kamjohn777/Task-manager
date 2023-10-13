@@ -45,9 +45,9 @@ const config = {
   issuerBaseURL: process.env['ISSUER_BASE_URL']
 };
 
-app.get('/profile', requiresAuth(), (req, res) => {
-  res.send(JSON.stringify(req.oidc.user));
-});
+// app.get('/profile', requiresAuth(), (req, res) => {
+//   res.send(JSON.stringify(req.oidc.user));
+// });
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
