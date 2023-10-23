@@ -7,33 +7,23 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const taskRouter = require('./routes/tasks');
-const { auth } = require('express-openid-connect');
-//require env files
+const { auth, requiresAuth } = require('express-openid-connect'); // Import 'requiresAuth' correctly
+
+// Require environment files
 const dotenv = require('dotenv')
 dotenv.config()
-// require('dotenv').config()
 
+const app = express();
 
-
-
-
-
-const app = express(); // Define the app object here
-
-
-// app.set('view engine', 'pug');
-
-
+// Set up middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// User Authentication Section
 
-// view engine setup
+// Set view engine
 app.set('views', path.join(__dirname, 'views'));
-// app.engine('html', require('jade').renderFile);
 app.set('view engine', 'jade');
 
 const config = {
@@ -45,45 +35,33 @@ const config = {
   issuerBaseURL: process.env['ISSUER_BASE_URL']
 };
 
-app.get('/profile', requiresAuth(), (req, res) => {
-  res.send(JSON.stringify(req.oidc.user));
-});
+// Use 'requiresAuth' middleware for protected routes
+// app.get('/profile', requiresAuth(), (req, res) => {
+//   res.send(JSON.stringify(req.oidc.user));
+// });
 
-// auth router attaches /login, /logout, and /callback routes to the baseURL
+// Set up user authentication using 'auth' middleware
 app.use(auth(config));
 
-
-
-// req.isAuthenticated is provided from the auth router
+// Handle routes
 app.get('/', (req, res) => {
   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 });
 
-//  End of User Authentication Section
-
-// var app = express();
+// Use 'cors' middleware
 app.use(cors());
 
-
-// view engine setup
-
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
+// Include route handlers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tasks', taskRouter);
 
-// catch 404 and forward to error handler
+// Handle 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
+// Handle errors (you can uncomment and configure this as needed)
 // app.use(function(err, req, res, next) {
 //   // set locals, only providing error in development
 //   res.locals.message = err.message;
