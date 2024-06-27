@@ -1,4 +1,3 @@
-// const { db } = require("./models");
 const { db } = require("./Models");
 const app = require("./app");
 

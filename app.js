@@ -35,11 +35,6 @@ const config = {
   issuerBaseURL: process.env['ISSUER_BASE_URL']
 };
 
-// Use 'requiresAuth' middleware for protected routes
-// app.get('/profile', requiresAuth(), (req, res) => {
-//   res.send(JSON.stringify(req.oidc.user));
-// });
-
 // Set up user authentication using 'auth' middleware
 app.use(auth(config));
 
@@ -60,16 +55,5 @@ app.use('/tasks', taskRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
-// Handle errors (you can uncomment and configure this as needed)
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
 
 module.exports = app;
